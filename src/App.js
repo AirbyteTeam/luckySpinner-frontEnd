@@ -12,9 +12,6 @@ class App extends React.Component{
     return (
       <div className="SpinnerSection">
         <Spinner />
-        <div className="powerbar-container">
-          <img src={powerbar} alt="Power Bar"/>
-        </div>
         <SpinnerMessage />
       </div>
   );

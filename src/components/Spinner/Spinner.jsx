@@ -11,15 +11,18 @@ const PRIVATE_KEY = SPINNER_PRIVATE_KEY;
 const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
 export class Spinner extends Component {
+
     state={
         spinnerState:"circle"
       }
+
       //Function to Rotate and Stop the spinner
       RotateSpinner = ()=>{
         this.setState({spinnerState:"circle start-rotating"});
         setTimeout(()=>{
           this.setState({spinnerState:"circle start-rotating stop-rotating"});
-          const res = this.checkValue()
+          const res = this.checkValue();
+          console.log(res)
           let device = "web-pwa"
           if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
             device = "mobile-pwa"
@@ -61,69 +64,72 @@ export class Spinner extends Component {
         return (
             <>
                 <div className="arrow"></div>
-                <div className="button-container"><button onClick={this.RotateSpinner}>SPIN</button></div>
+                <div className="button-container"><span></span></div>
                 <ul className={this.state.spinnerState}>
                     <li>
                       <div className="circle-section">
-                        <span className="circle-span" id="1">Better luck <br/> next time!</span>
+                        <span className="circle-span" id="1">پــــوچ</span>
                         </div>
                       </li>
                     <li>
                       <div className="circle-section">
-                        <span className="circle-span" id="2">2x <br/> Savings</span>
+                        <span className="circle-span" id="2">میگ میگ</span>
                       </div>
                     </li>
                     <li>
                       <div className="circle-section">
-                        <span className="circle-span" id="3">100% <br/> Cashback</span>
+                        <span className="circle-span" id="3">پــــوچ</span>
                       </div>
                     </li>
                     <li>
                       <div className="circle-section">
-                        <span className="circle-span" id="4">&#x20B9; 20<img src={money} alt=""/></span>
+                        <span className="circle-span" id="4">پـــریفما</span>
                       </div>
                     </li>
                     <li>
                       <div className="circle-section">
-                        <span className="circle-span " id="5">&#x20B9; 50<img src={money} alt=""/></span>
+                        <span className="circle-span " id="5">پوچ</span>
                       </div>
                     </li>
                     <li>
                       <div className="circle-section">
-                        <span className="circle-span " id="6">1.5x <br/> Savings</span>
+                        <span className="circle-span " id="6">ایــزایــن</span>
                       </div>
                     </li>
                     <li>
                       <div className="circle-section">
-                        <span className="circle-span" id="7">2x <br/> Savings</span>
+                        <span className="circle-span" id="7">پــــوچ</span>
                       </div>
                     </li>
                     <li>
                       <div className="circle-section">
-                      <span className="circle-span" id="8">Better luck <br/> next time!</span>
+                      <span className="circle-span" id="8">تخفیف خرید عینک</span>
                     </div>
                     </li>
                     <li>
                       <div className="circle-section">
-                        <span className="circle-span" id="9">&#x20B9; 20<img src={money} alt=""/></span>
+                        <span className="circle-span" id="9">پــــوچ</span>
                       </div>
                     </li>
                     <li>
                       <div className="circle-section">
-                        <span className="circle-span" id="10">75% <br/> Cashback</span>
+                        <span className="circle-span" id="10">تخفیف تابلو فرش</span>
                       </div>
                     </li>
                     <li>
                       <div className="circle-section">
-                        <span className="circle-span" id="11">&#x20B9; 50<img src={money} alt=""/></span>
+                        <span className="circle-span" id="11">پــــوچ</span>
                       </div>
                     </li>
                     <li>
                       <div className="circle-section">
-                        <span className="circle-span" id="12">3x <br/> Savings</span>
+                        <span className="circle-span" id="12">آموزش تعمیرات</span>
                     </div>
                     </li>
-                </ul>  
+                </ul>
+                <div className="start-button-container">
+                    <button  className="start-button" onClick={this.RotateSpinner} disabled={this.state.spinnerState==="circle start-rotating"}>شانست رو امتحان کن</button>
+                </div>
             </>
         )
     }
