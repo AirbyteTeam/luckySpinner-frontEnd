@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import {SPINNER_SPREADSHEET_ID,SPINNER_SHEET_ID,SPINNER_CLIENT_EMAIL,SPINNER_PRIVATE_KEY} from './spinner_credentials'
 import './Spinner.css';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import money from '../../images/money.png'
 
 const SPREADSHEET_ID = SPINNER_SPREADSHEET_ID;
@@ -13,8 +15,15 @@ const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 export class Spinner extends Component {
 
     state={
-        spinnerState:"circle"
+        spinnerState:"circle",
+        showModal: false,
+        resultOfWheel:""
       }
+        handleClose = () => this.setState({showModal:false});
+        handleShow = (text) => {
+            this.setState({resultOfWheel:text})
+            this.setState({showModal:true})
+        };
 
       //Function to Rotate and Stop the spinner
       RotateSpinner = ()=>{
@@ -27,7 +36,7 @@ export class Spinner extends Component {
           if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
             device = "mobile-pwa"
            }
-          this.appendSpreadsheet({ web_client: device, timestamp: new Date(),spin_result_index:res })
+          // this.handleShow(res);
         },Math.floor(Math.random()*10000+1))
       }
 
@@ -39,7 +48,7 @@ export class Spinner extends Component {
         elements.forEach(function(elem) {
         if(elem.getBoundingClientRect().left>max){
           max = elem.getBoundingClientRect().left
-          element = elem.childNodes[0].id
+          element = elem.childNodes[0].textContent;
         }
         });
         return element
@@ -88,7 +97,7 @@ export class Spinner extends Component {
                     </li>
                     <li>
                       <div className="circle-section">
-                        <span className="circle-span " id="5">پوچ</span>
+                        <span className="circle-span " id="5">پــــوچ</span>
                       </div>
                     </li>
                     <li>
@@ -127,9 +136,36 @@ export class Spinner extends Component {
                     </div>
                     </li>
                 </ul>
-                <div className="start-button-container">
-                    <button  className="start-button" onClick={this.RotateSpinner} disabled={this.state.spinnerState==="circle start-rotating"}>شانست رو امتحان کن</button>
+                <div className="form-container">
+                    <div className="phoneNumberInput">
+                        <input type="text" placeholder="شماره همراه خود را وارد کنید"/>
+                    </div>
+                    <div className="start-button-container">
+                        <button  className="start-button" onClick={this.RotateSpinner} disabled={this.state.spinnerState==="circle start-rotating"}>شانست رو امتحان کن</button>
+                    </div>
                 </div>
+
+                <Modal show={this.state.showModal} onHide={this.handleClose} animation={true} centered>
+                    <Modal.Body>
+                        {
+                            this.state.resultOfWheel === "پــــوچ" ?
+                                (
+                                    <div className='d-flex justify-content-center'>
+                                        <div>پــــوچ</div>
+                                    </div>
+                                ):(
+                                    <div className='d-flex justify-content-center'>
+                                        <div>{this.state.resultOfWheel}</div>
+                                    </div>
+                                )
+                        }
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="danger" onClick={this.handleClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </>
         )
     }

@@ -1,19 +1,20 @@
 import React,{Fragment} from 'react';
-import Spinner from './components/Spinner/Spinner'
-import SpinnerMessage from './components/SpinnerMessage/SpinnerMessage'
-import powerbar from './images/powerbar.svg'
 import './App.css';
-
+import SpinnerContainer from "./components/Spinner/SpinnerContainer";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Login from "./components/Admin/Login";
 
 class App extends React.Component{
 
  
   render(){
     return (
-      <div className="SpinnerSection">
-        <Spinner />
-        <SpinnerMessage />
-      </div>
+        <BrowserRouter>
+            <Routes>
+                <Route exact path="/" element={(<SpinnerContainer/>)}/>
+                <Route path="/admin" element={(<Login/>)}/>
+            </Routes>
+        </BrowserRouter>
   );
   }
 }

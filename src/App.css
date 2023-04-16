@@ -1,9 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
 body{
-  background: #F7F6F3;
-  max-height:100vh;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
+  margin:0;
+  padding: 0;
+}
+*{
+  margin:0;
+  padding: 0;
+}
+.main-background{
+  margin-top:-4rem;
+  width: 100%;
+  height: 100vh;
+  background: url("images/background.svg") no-repeat ;
+  background-size: cover;
+  background-position: center;
 }
 .SpinnerSection{
   margin: 20px auto;
@@ -13,4 +22,7 @@ body{
 
 .powerbar-container{
   text-align: center;
+}
+.form-container{
+  margin-top: 9rem;
 }
