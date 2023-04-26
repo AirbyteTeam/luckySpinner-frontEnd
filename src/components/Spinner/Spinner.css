@@ -6,12 +6,12 @@
     font-family: graphikBold;
     src: url(../../font/GraphikBold.otf);
 }
+
 body{
     font-family: graphik ;
 }
 
 li:nth-child(even) .circle-section{
-
     color: white;
     background: rgb(246,91,43);
     background: linear-gradient(0deg, rgba(246,91,43,1) 20%, rgba(255,132,96,1) 50%, rgba(214,24,13,1) 93%, rgba(170,13,5,1) 100%);
@@ -190,7 +190,18 @@ animation-play-state: paused;
 .phoneNumberInput{
     display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+}
+.errorField{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+.errorField span{
+    color:#fff;
+    font-size: 0.7rem;
+    font-family: graphik;
+    font-weight: bold;
 }
 .phoneNumberInput input{
     border: 2px solid #DADDEC;
@@ -201,4 +212,53 @@ animation-play-state: paused;
     font-family: graphik;
     font-size: 1rem;
     text-align: center;
+}
+.modal-container{
+    background-color: #fbfbfb;
+}
+.modal-container .gif-container{
+    display: flex;
+    justify-content: center;
+}
+
+.modal-container .gif-container img{
+    width: 60%;
+}
+.modal-container .text-container{
+    text-align: center;
+}
+.modal-container .text-container h3{
+    font-family: graphikBold;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+}
+.modal-container .text-container .discount{
+    margin-bottom: 1.5rem;
+}
+.modal-container .text-container .discount .discount-code{
+    background-color: rgba(214,24,13,1);
+    border-radius: 10px;
+    padding: 0.4rem;
+    color: #fff;
+}
+.modal-container .text-container .website{
+    display: flex;
+    justify-content: center;
+}
+.modal-container .text-container .website a{
+    text-decoration: none;
+    color: #000;
+    background-color: rgba(254,214,116,1);
+    padding: 0.6rem;
+    border-radius: 2rem;
+    box-shadow: 0px 4px 0px rgb(199 165 81);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 46%;
+    direction: rtl;
+}
+.modal-container .text-container .website a:hover{
+    background-color: rgb(199 165 81);
 }

@@ -1,5 +1,11 @@
 import React, {Fragment, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react'
+import * as PropTypes from "prop-types";
+function Routes(props) {
+    return null;
+}
+
+Routes.propTypes = {children: PropTypes.node};
 
 function AddCode() {
 
