@@ -3,7 +3,6 @@ import './Spinner.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import gift from "../../images/gift.gif"
-
 import * as yup from "yup";
 import {BiArrowBack} from "react-icons/bi";
 import {FiArrowLeft} from "react-icons/fi";
@@ -52,7 +51,7 @@ const Spinner = () => {
                   if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
                       device = "mobile-pwa"
                   }
-                  handleShow(res);
+                  setTimeout(()=>{handleShow(res)},1000)
               },Math.floor(Math.random()*10000+1))
           }
       }
@@ -71,70 +70,73 @@ const Spinner = () => {
 
         return (
             <>
+                <div className={"title-container"}></div>
                 <div className="arrow"></div>
                 <div className="button-container"><span></span></div>
-                <ul className={spinnerState}>
-                    <li>
-                      <div className="circle-section">
-                        <span className="circle-span" id="1">پــــوچ</span>
-                        </div>
-                      </li>
-                    <li>
-                      <div className="circle-section">
-                        <span className="circle-span" id="2">میگ میگ</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="circle-section">
-                        <span className="circle-span" id="3">پــــوچ</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="circle-section">
-                        <span className="circle-span" id="4">پـــریفما</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="circle-section">
-                        <span className="circle-span " id="5">پــــوچ</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="circle-section">
-                        <span className="circle-span " id="6">ایــزایــن</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="circle-section">
-                        <span className="circle-span" id="7">پــــوچ</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="circle-section">
-                      <span className="circle-span" id="8">تخفیف خرید عینک</span>
-                    </div>
-                    </li>
-                    <li>
-                      <div className="circle-section">
-                        <span className="circle-span" id="9">پــــوچ</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="circle-section">
-                        <span className="circle-span" id="10">تخفیف تابلو فرش</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="circle-section">
-                        <span className="circle-span" id="11">پــــوچ</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="circle-section">
-                        <span className="circle-span" id="12">آموزش تعمیرات</span>
-                    </div>
-                    </li>
-                </ul>
+                <div className={"d-flex justify-content-center"}>
+                    <ul className={spinnerState}>
+                        <li>
+                            <div className="circle-section">
+                                <span className="circle-span" id="1">پــــوچ</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="circle-section">
+                                <span className="circle-span" id="2">میگ میگ</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="circle-section">
+                                <span className="circle-span" id="3">پــــوچ</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="circle-section">
+                                <span className="circle-span" id="4">پـــریفما</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="circle-section">
+                                <span className="circle-span " id="5">پــــوچ</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="circle-section">
+                                <span className="circle-span " id="6">ایــزایــن</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="circle-section">
+                                <span className="circle-span" id="7">پــــوچ</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="circle-section">
+                                <span className="circle-span" id="8">تخفیف خرید عینک</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="circle-section">
+                                <span className="circle-span" id="9">پــــوچ</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="circle-section">
+                                <span className="circle-span" id="10">تخفیف تابلو فرش</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="circle-section">
+                                <span className="circle-span" id="11">پــــوچ</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="circle-section">
+                                <span className="circle-span" id="12">آموزش تعمیرات</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <div className="form-container">
                     <div className="phoneNumberInput">
                         <input type="text" placeholder="شماره همراه خود را وارد کنید" onChange={(value)=>{handleInput(value)}}/>
