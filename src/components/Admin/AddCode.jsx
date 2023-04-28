@@ -147,10 +147,10 @@ function AddCode() {
                                 className="flex flex-row items-center rounded-md bg-lime-400 p-2 text-sm font-medium text-white hover:bg-lime-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                     strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-2">
+                                     strokeWidth={1.5} stroke="currentColor" className="text-black w-6 h-6 ml-2">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
                                 </svg>
-                                <span>افزودن کد تخفیف</span>
+                                <span className="text-black">افزودن کد تخفیف</span>
                             </button>
                         </div>
                         <Transition appear show={isOpenAddCode} as={Fragment}>
@@ -182,7 +182,7 @@ function AddCode() {
                                                 className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                                 <Dialog.Title
                                                     as="h3"
-                                                    className="text-lg text-center font-bold leading-6 text-gray-900"
+                                                    className="text-lg text-center font-bold leading-6 text-black"
                                                 >
                                                     افزودن کد تخفیف
                                                 </Dialog.Title>
@@ -190,84 +190,84 @@ function AddCode() {
 
                                                     <div className='text-right'>
                                                         <label
-                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                            className="block mb-2 text-sm font-medium text-black dark:text-white">
                                                             نام شرکت
                                                         </label>
                                                         <input
                                                             type="text" name='companyName'
                                                             value={addDiscountCode.companyName} onChange={onChangeInputAddCode}
-                                                            className="block text-right w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
+                                                            className="block text-right w-full p-2 text-black border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
                                                     </div>
 
                                                     <div className='text-right'>
                                                         <label
-                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                            className="block mb-2 text-sm font-medium text-black dark:text-white">
                                                             نام محصول
                                                         </label>
                                                         <input
                                                             type="text" name='productName'
                                                             value={addDiscountCode.productName} onChange={onChangeInputAddCode}
-                                                            className="block text-right w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
+                                                            className="block text-right w-full p-2 text-black border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
                                                     </div>
 
                                                     <div className='text-right'>
                                                         <label
-                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                            className="block mb-2 text-sm font-medium text-black dark:text-white">
                                                             کد تخفیف
                                                         </label>
                                                         <input
                                                             type="text" name='discountCode'
                                                             value={addDiscountCode.discountCode}
                                                             onChange={onChangeInputAddCode}
-                                                            className="block text-right w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
+                                                            className="block text-right w-full p-2 text-black-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
                                                     </div>
 
                                                     <div className='text-right'>
                                                         <label
-                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                            className="block mb-2 text-sm font-medium text-black dark:text-white">
                                                             تعداد
                                                         </label>
                                                         <input
                                                             type="number" name='discountCount'
                                                             value={addDiscountCode.discountCount}
                                                             onChange={onChangeInputAddCode}
-                                                            className="block text-right w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
+                                                            className="block text-right w-full p-2 text-black border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
                                                     </div>
 
                                                     <div className='text-right'>
                                                         <label
-                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                            className="block mb-2 text-sm font-medium text-black dark:text-white">
                                                             شماره تلفن
                                                         </label>
                                                         <input
                                                             type="number" name='companyTelephoneNumber'
                                                             value={addDiscountCode.companyTelephoneNumber}
                                                             onChange={onChangeInputAddCode}
-                                                            className="block text-right w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
+                                                            className="block text-right w-full p-2 text-black border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
                                                     </div>
 
                                                     <div className='text-right'>
                                                         <label
-                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                            className="block mb-2 text-sm font-medium text-black dark:text-white">
                                                             وب سایت
                                                         </label>
                                                         <input
                                                             type="text" name='companyWebsite'
                                                             value={addDiscountCode.companyWebsite}
                                                             onChange={onChangeInputAddCode}
-                                                            className="block text-right w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
+                                                            className="block text-right w-full p-2 text-black border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
                                                     </div>
 
                                                     <div className='text-right'>
                                                         <label
-                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                            className="block mb-2 text-sm font-medium text-black dark:text-white">
                                                             آدرس
                                                         </label>
                                                         <input
                                                             type="text" name='companyAddress'
                                                             value={addDiscountCode.companyAddress}
                                                             onChange={onChangeInputAddCode}
-                                                            className="block text-right w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
+                                                            className="block text-right w-full p-2 text-black border border-gray-300 rounded-lg bg-gray-50 sm:text-xs outline-0	"/>
                                                     </div>
 
                                                 </div>
