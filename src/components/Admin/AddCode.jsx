@@ -1,59 +1,10 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react'
-import * as PropTypes from "prop-types";
-function Routes(props) {
-    return null;
-}
-
-Routes.propTypes = {children: PropTypes.node};
+import api from "../../api/api";
+import {Link} from "react-router-dom";
 
 function AddCode() {
-
-    const [discountCodes, setDiscountCodes] = useState(
-        [
-            {
-                id: 69,
-                companyName: 'میگ میگ',
-                productName: 'آیفون 14',
-                discountCode: 'MIGMIG50',
-                discountCount: '69',
-                companyWebsite: 'www.migmig.co',
-                companyTelephoneNumber: '0219996996',
-                companyAddress: 'تهران',
-            },
-            {
-                id: 70,
-                companyName: 'دیجیکالا',
-                productName: 'پاور بانک',
-                discountCode: 'MIGMIG50',
-                discountCount: '69',
-                companyWebsite: 'www.migmig.co',
-                companyTelephoneNumber: '0219996996',
-                companyAddress: 'تهران',
-            },
-            {
-                id: 71,
-                companyName: 'علی بابا',
-                productName: 'تور تایلند',
-                discountCode: 'MIGMIG50',
-                discountCount: '69',
-                companyWebsite: 'www.migmig.co',
-                companyTelephoneNumber: '0219996996',
-                companyAddress: 'تهران',
-            },
-            {
-                id: 72,
-                companyName: 'اسنپ',
-                productName: 'سفر رایگان',
-                discountCode: 'MIGMIG50',
-                discountCount: '69',
-                companyWebsite: 'www.migmig.co',
-                companyTelephoneNumber: '0219996996',
-                companyAddress: 'تهران',
-            },
-        ]
-    )
-
+    const [discountCodes, setDiscountCodes] = useState([])
     const [newDiscountCode, setNewDiscountCode] = useState({
         companyName: '',
         productName: '',
@@ -63,12 +14,46 @@ function AddCode() {
         companyTelephoneNumber: '',
         companyAddress: '',
     })
-
+    const resetNewDiscountCode = () =>{
+        const reset = {
+            companyName: '',
+            productName: '',
+            discountCode: '',
+            discountCount: '',
+            companyWebsite: '',
+            companyTelephoneNumber: '',
+            companyAddress: '',
+        }
+        setNewDiscountCode(reset)
+    }
+    const resetTargetEditCode = () =>{
+        const reset = {
+            companyName: '',
+            productName: '',
+            discountCode: '',
+            discountCount: '',
+            companyWebsite: '',
+            companyTelephoneNumber: '',
+            companyAddress: '',
+        }
+        setTargetEditCode(reset)
+    }
     const [isOpenAddCode, setIsOpenAddCode] = useState(false)
     const [isOpenDeleteCode, setIsOpenDeleteCode] = useState(false)
     const [isOpenEditCode, setIsOpenEditCode] = useState(false)
     const [targetIdDeleteCode, setTargetIdDeleteCode] = useState('')
-    const [targetEditCode, setTargetEditCode] = useState('')
+    const [targetEditCode, setTargetEditCode] = useState({})
+
+    const getData = async () => {
+        const getDataRes = await api.get(`discount`)
+        if (getDataRes) {
+            setDiscountCodes([...getDataRes])
+        }
+    }
+
+    useEffect(()=>{
+        getData()
+    },[])
 
     function closeModalAddCode() {
         setIsOpenAddCode(false)
@@ -110,27 +95,32 @@ function AddCode() {
         })
     }
 
-    function addDiscountCode() {
-        console.log(newDiscountCode)
-        setIsOpenAddCode(true)
+    async function addDiscountCode() {
+        await api.post("discount",newDiscountCode)
+        getData()
+        resetNewDiscountCode()
+        setIsOpenAddCode(false)
     }
 
-    function  handleDeleteCode() {
-        console.log(targetIdDeleteCode)
+    async function  handleDeleteCode() {
+        await api.delete(`discount/${targetIdDeleteCode}`)
+        getData()
         setIsOpenDeleteCode(false)
     }
 
-    function  handleEditCode() {
-        console.log(targetEditCode)
+    async function  handleEditCode() {
+        await api.put(`discount/${targetEditCode.id}`,targetEditCode)
+        getData()
+        resetTargetEditCode()
         setIsOpenEditCode(false)
     }
 
     return (
         <>
             <div className="bg-gray-50 dark:bg-gray-900 text-right h-screen p-8 font-graphik" dir='rtl'>
-                <div className="container ">
+                <div className="container">
                     <div className="flex flex-row justify-between items-center my-4">
-                        <div className="flex flex-row items-center text-lg font-bold">
+                        <div className="flex flex-row items-center text-lg font-bold text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                                  stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round"
@@ -152,6 +142,11 @@ function AddCode() {
                                 </svg>
                                 <span className="text-black">افزودن کد تخفیف</span>
                             </button>
+                            <Link to='/' className="mx-4 flex flex-row items-center rounded-md bg-red-600 px-4 py-[0.6rem] text-sm font-medium text-white hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75" onClick={() => {
+                                    localStorage.clear()
+                                }}>
+                                خــروج
+                            </Link>
                         </div>
                         <Transition appear show={isOpenAddCode} as={Fragment}>
                             <Dialog as="div" className="relative z-10" onClose={closeModalAddCode}>
@@ -182,7 +177,7 @@ function AddCode() {
                                                 className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                                 <Dialog.Title
                                                     as="h3"
-                                                    className="text-lg text-center font-bold leading-6 text-black"
+                                                    className="text-lg text-center font-bold leading-6 "
                                                 >
                                                     افزودن کد تخفیف
                                                 </Dialog.Title>

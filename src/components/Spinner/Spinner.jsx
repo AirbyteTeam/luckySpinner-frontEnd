@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react'
+import React, {Component, useEffect, useState} from 'react'
 import './Spinner.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -6,14 +6,38 @@ import gift from "../../images/gift.gif"
 import * as yup from "yup";
 import {BiArrowBack} from "react-icons/bi";
 import {FiArrowLeft} from "react-icons/fi";
-
+import api from "../../api/api";
+import axios from "axios";
 const Spinner = () => {
 
     const [spinnerState,setSpinnerState] = useState("circle")
     const [showModal,setShowModal] = useState(false)
-    const [resultOfWheel,setResultOfWheel] = useState("")
+    const [resultOfWheel,setResultOfWheel] = useState({})
     const [errors, setErrors] = useState([])
     const [number, setNumber] = useState("")
+    const [companyNames,setCompanyNames] = useState([]);
+    const [sliceSize,setSliceSize] = useState(0);
+    const getData = async ()=> {
+
+    }
+    useEffect( ()=>{
+        async function getData() {
+            try {
+                let res = await axios({
+                    method: 'GET',
+                    url: "http://localhost:8010/api/v1/discount/companyNames",
+                });
+                let data = res.data;
+                setCompanyNames([...data])
+                const size = Math.ceil(360 / data.length)
+                setSliceSize(size)
+            }catch (error) {
+                console.log(error);
+            }
+        }
+        getData();
+    },[])
+
     const handleInput = (value) => {
         setNumber(value.target.value)
     }
@@ -21,8 +45,30 @@ const Spinner = () => {
         setShowModal(false)
     };
 
-    const handleShow = (text) => {
-        setResultOfWheel(text)
+    const sendSms = async (companyName) =>{
+        try {
+            let res = await axios({
+                method: 'post',
+                url: 'http://localhost:8010/api/v1/discount/sendSms',
+                data: {
+                    companyName: companyName,
+                    phoneNumber: number
+                }
+            });
+            let data = res.data;
+            return data;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    const handleShow = async (companyName) => {
+        const res = await sendSms(companyName)
+        if(res){
+            console.log(res)
+            setResultOfWheel(res)
+        }
         setShowModal(true)
     };
 
@@ -40,7 +86,6 @@ const Spinner = () => {
 
       //Function to Rotate and Stop the spinner
       const RotateSpinner = async ()=>{
-
           const result = await validation()
           if (result !== undefined) {
               setErrors([])
@@ -63,11 +108,9 @@ const Spinner = () => {
         let elem = document.elementFromPoint(width/2,height/3)
         return elem.childNodes[0].textContent
       }
-
-
-
-
-
+      const goToWebsite = (website) =>{
+          window.location.replace(website)
+      }
         return (
             <>
                 <div className={"title-container"}></div>
@@ -75,66 +118,16 @@ const Spinner = () => {
                 <div className="button-container"><span></span></div>
                 <div className={"d-flex justify-content-center"}>
                     <ul className={spinnerState}>
-                        <li>
-                            <div className="circle-section">
-                                <span className="circle-span" id="1">پــــوچ</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="circle-section">
-                                <span className="circle-span" id="2">میگ میگ</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="circle-section">
-                                <span className="circle-span" id="3">پــــوچ</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="circle-section">
-                                <span className="circle-span" id="4">پـــریفما</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="circle-section">
-                                <span className="circle-span " id="5">پــــوچ</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="circle-section">
-                                <span className="circle-span " id="6">ایــزایــن</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="circle-section">
-                                <span className="circle-span" id="7">پــــوچ</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="circle-section">
-                                <span className="circle-span" id="8">تخفیف خرید عینک</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="circle-section">
-                                <span className="circle-span" id="9">پــــوچ</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="circle-section">
-                                <span className="circle-span" id="10">تخفیف تابلو فرش</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="circle-section">
-                                <span className="circle-span" id="11">پــــوچ</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="circle-section">
-                                <span className="circle-span" id="12">آموزش تعمیرات</span>
-                            </div>
-                        </li>
+                        {
+
+                            companyNames.map((companyName,index)=>(
+                                <li style={{transform:`rotate(${(index * sliceSize)}deg) skewY(-60deg)`,zIndex:`${index*5}`}}>
+                                    <div className="circle-section">
+                                        <span className="circle-span" id="1">{companyName}</span>
+                                    </div>
+                                </li>
+                            ))
+                        }
                     </ul>
                 </div>
                 <div className="form-container">
@@ -156,7 +149,7 @@ const Spinner = () => {
                 <Modal show={showModal} onHide={handleClose} animation={true} centered>
                     <Modal.Body>
                         {
-                            resultOfWheel === "پــــوچ" ?
+                            resultOfWheel.companyName === "پوچ" ?
                                 (
                                     <div className='d-flex justify-content-center modal-container'>
                                         <div>پــــوچ</div>
@@ -165,19 +158,20 @@ const Spinner = () => {
                                     <div className='d-flex flex-col justify-content-center modal-container'>
                                         <div className="gif-container"><img src={gift} alt="gif"/></div>
                                         <div className="text-container">
-                                            <h3>{resultOfWheel}</h3>
+                                            <h3>{resultOfWheel.companyName}</h3>
+                                            <h5>{resultOfWheel.productName}</h5>
                                             <div className="discount">
-                                                <span className="discount-code">migmig1452</span>
+                                                <span className="discount-code">{resultOfWheel.discountCode}</span>
                                                 <span> : کد تخفیف</span>
                                             </div>
-                                            <div className="website"><a href="#" target="_blank">  ورود به سایت<span>{resultOfWheel}</span><BiArrowBack/></a></div>
+                                            <div className="website"><button onClick={()=> goToWebsite(resultOfWheel.companyWebsite)}>  ورود به سایت <span>{resultOfWheel.companyName}</span><BiArrowBack/></button></div>
                                         </div>
                                     </div>
                                 )
                         }
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={handleClose}>
+                        <Button variant="danger" className="bg-red-600 hover:bg-red-500" onClick={handleClose}>
                             بستن
                         </Button>
                     </Modal.Footer>
